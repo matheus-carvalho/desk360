@@ -41,27 +41,63 @@
         </div>
         <form>
             <div class="form-group row">
-                <div class="col-md-4">
+                <div class="col-md-6">
                     <label for="nome">Nome</label>
                     <input v-model="new_contact.nome" type="text" class="form-control" id="nome">
                 </div>
 
-                <div class="col-md-4">
+                <div class="col-md-6">
                     <label for="email">Email</label>
                     <input v-model="new_contact.email" type="text" class="form-control" id="email">
                 </div>
 
-                <div class="col-md-4">
+                <div class="col-md-6">
                     <label for="facebook">Facebook</label>
                     <input v-model="new_contact.facebook" type="text" class="form-control" id="facebook">
                 </div>
 
-                <div class="col-md-4">
+                <div class="col-md-6">
                     <label for="linkedin">LinkedIn</label>
                     <input v-model="new_contact.linkedin" type="text" class="form-control" id="linkedin">
                 </div>
+
             </div>
-            <div class="d-flex flex-row bd-highlight mb-3">
+            <hr/>
+            <div class="row">
+                <div class="col-md-12">
+                    <h3>Telefones</h3>
+                </div>
+                <div class="row col-md-12 form-group" v-for="tel in new_contact.telefones">
+                    <div class="col-md-4">
+                        <label for="numero">Número</label>
+                        <input v-model="tel.numero" type="text" class="form-control" id="numero">
+                    </div>
+                    <div class="col-md-4">
+                        <label for="tipo">Tipo</label>
+                        <select class="form-control" v-model="tel.tipo" id="tipo">
+                            <option>Residencial</option>
+                            <option>Comercial</option>
+                            <option>Celular</option>
+                        </select>
+                    </div>
+                    <div class="col-md-4">
+                        <label class="col-md-12 text-center" for="btn-rm">Remover Telefone</label>
+                        <button @click="removeTel(tel)" type="button" class="btn btn-danger col-md-4 offset-md-4"
+                                title="Remover telefone" id="btn-rm">
+                            <i class="fa fa-times" aria-hidden="true"></i>
+                        </button>
+                    </div>
+                </div>
+                <div class="col-md-12">
+                    <label class="col-md-3" for="btn-add">Adicionar Telefone</label>
+                    <button @click="addTel()" type="button" class="btn btn-success col-md-1" title="Adicionar telefone"
+                            id="btn-add">
+                        <i class="fa fa-plus" aria-hidden="true"></i>
+                    </button>
+                </div>
+            </div>
+            <hr/>
+            <div class="d-flex flex-row bd-highlight mb-3 mt-5">
                 <button type="button" v-on:click="disableCreate" class="btn btn-light">Cancelar</button>
                 <button type="button" v-on:click="create" class="btn btn-success">Cadastrar</button>
             </div>
@@ -95,6 +131,7 @@
                     email: "",
                     facebook: "",
                     linkedin: "",
+                    telefones: []
                 },
                 validations: []
             }
@@ -197,6 +234,13 @@
                     this.$swal('Error', 'Erro ao inserir cliente', "error");
                 });
             },
+            addTel: function() {
+                this.new_contact.telefones.push({id: null, numero: '', tipo: 'Residencial'});
+            },
+            removeTel: function(tel) {
+                const index = this.new_contact.telefones.indexOf(tel);
+                this.new_contact.telefones.splice(index, 1);
+            },
             validateEmptyOrWhiteSpace: function(txt) { // Valida se o texto nao esta vazio nem somente espacos em branco
                 return txt === null || txt.trim().length>0;
             },
@@ -207,6 +251,7 @@
                     email: "",
                     facebook: "",
                     linkedin: "",
+                    telefones: []
                 }
             }
         },

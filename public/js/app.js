@@ -1987,6 +1987,42 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 
 
 
@@ -2005,7 +2041,8 @@ vue__WEBPACK_IMPORTED_MODULE_0___default.a.use(vue_sweetalert2__WEBPACK_IMPORTED
         nome: "",
         email: "",
         facebook: "",
-        linkedin: ""
+        linkedin: "",
+        telefones: []
       },
       validations: []
     };
@@ -2131,6 +2168,17 @@ vue__WEBPACK_IMPORTED_MODULE_0___default.a.use(vue_sweetalert2__WEBPACK_IMPORTED
         _this5.$swal('Error', 'Erro ao inserir cliente', "error");
       });
     },
+    addTel: function addTel() {
+      this.new_contact.telefones.push({
+        id: null,
+        numero: '',
+        tipo: 'Residencial'
+      });
+    },
+    removeTel: function removeTel(tel) {
+      var index = this.new_contact.telefones.indexOf(tel);
+      this.new_contact.telefones.splice(index, 1);
+    },
     validateEmptyOrWhiteSpace: function validateEmptyOrWhiteSpace(txt) {
       // Valida se o texto nao esta vazio nem somente espacos em branco
       return txt === null || txt.trim().length > 0;
@@ -2141,7 +2189,8 @@ vue__WEBPACK_IMPORTED_MODULE_0___default.a.use(vue_sweetalert2__WEBPACK_IMPORTED
         nome: "",
         email: "",
         facebook: "",
-        linkedin: ""
+        linkedin: "",
+        telefones: []
       };
     }
   },
@@ -41317,7 +41366,7 @@ var render = function() {
         _vm._v(" "),
         _c("form", [
           _c("div", { staticClass: "form-group row" }, [
-            _c("div", { staticClass: "col-md-4" }, [
+            _c("div", { staticClass: "col-md-6" }, [
               _c("label", { attrs: { for: "nome" } }, [_vm._v("Nome")]),
               _vm._v(" "),
               _c("input", {
@@ -41343,7 +41392,7 @@ var render = function() {
               })
             ]),
             _vm._v(" "),
-            _c("div", { staticClass: "col-md-4" }, [
+            _c("div", { staticClass: "col-md-6" }, [
               _c("label", { attrs: { for: "email" } }, [_vm._v("Email")]),
               _vm._v(" "),
               _c("input", {
@@ -41369,7 +41418,7 @@ var render = function() {
               })
             ]),
             _vm._v(" "),
-            _c("div", { staticClass: "col-md-4" }, [
+            _c("div", { staticClass: "col-md-6" }, [
               _c("label", { attrs: { for: "facebook" } }, [_vm._v("Facebook")]),
               _vm._v(" "),
               _c("input", {
@@ -41395,7 +41444,7 @@ var render = function() {
               })
             ]),
             _vm._v(" "),
-            _c("div", { staticClass: "col-md-4" }, [
+            _c("div", { staticClass: "col-md-6" }, [
               _c("label", { attrs: { for: "linkedin" } }, [_vm._v("LinkedIn")]),
               _vm._v(" "),
               _c("input", {
@@ -41422,7 +41471,163 @@ var render = function() {
             ])
           ]),
           _vm._v(" "),
-          _c("div", { staticClass: "d-flex flex-row bd-highlight mb-3" }, [
+          _c("hr"),
+          _vm._v(" "),
+          _c(
+            "div",
+            { staticClass: "row" },
+            [
+              _vm._m(1),
+              _vm._v(" "),
+              _vm._l(_vm.new_contact.telefones, function(tel) {
+                return _c("div", { staticClass: "row col-md-12 form-group" }, [
+                  _c("div", { staticClass: "col-md-4" }, [
+                    _c("label", { attrs: { for: "numero" } }, [
+                      _vm._v("Número")
+                    ]),
+                    _vm._v(" "),
+                    _c("input", {
+                      directives: [
+                        {
+                          name: "model",
+                          rawName: "v-model",
+                          value: tel.numero,
+                          expression: "tel.numero"
+                        }
+                      ],
+                      staticClass: "form-control",
+                      attrs: { type: "text", id: "numero" },
+                      domProps: { value: tel.numero },
+                      on: {
+                        input: function($event) {
+                          if ($event.target.composing) {
+                            return
+                          }
+                          _vm.$set(tel, "numero", $event.target.value)
+                        }
+                      }
+                    })
+                  ]),
+                  _vm._v(" "),
+                  _c("div", { staticClass: "col-md-4" }, [
+                    _c("label", { attrs: { for: "tipo" } }, [_vm._v("Tipo")]),
+                    _vm._v(" "),
+                    _c(
+                      "select",
+                      {
+                        directives: [
+                          {
+                            name: "model",
+                            rawName: "v-model",
+                            value: tel.tipo,
+                            expression: "tel.tipo"
+                          }
+                        ],
+                        staticClass: "form-control",
+                        attrs: { id: "tipo" },
+                        on: {
+                          change: function($event) {
+                            var $$selectedVal = Array.prototype.filter
+                              .call($event.target.options, function(o) {
+                                return o.selected
+                              })
+                              .map(function(o) {
+                                var val = "_value" in o ? o._value : o.value
+                                return val
+                              })
+                            _vm.$set(
+                              tel,
+                              "tipo",
+                              $event.target.multiple
+                                ? $$selectedVal
+                                : $$selectedVal[0]
+                            )
+                          }
+                        }
+                      },
+                      [
+                        _c("option", [_vm._v("Residencial")]),
+                        _vm._v(" "),
+                        _c("option", [_vm._v("Comercial")]),
+                        _vm._v(" "),
+                        _c("option", [_vm._v("Celular")])
+                      ]
+                    )
+                  ]),
+                  _vm._v(" "),
+                  _c("div", { staticClass: "col-md-4" }, [
+                    _c(
+                      "label",
+                      {
+                        staticClass: "col-md-12 text-center",
+                        attrs: { for: "btn-rm" }
+                      },
+                      [_vm._v("Remover Telefone")]
+                    ),
+                    _vm._v(" "),
+                    _c(
+                      "button",
+                      {
+                        staticClass: "btn btn-danger col-md-4 offset-md-4",
+                        attrs: {
+                          type: "button",
+                          title: "Remover telefone",
+                          id: "btn-rm"
+                        },
+                        on: {
+                          click: function($event) {
+                            return _vm.removeTel(tel)
+                          }
+                        }
+                      },
+                      [
+                        _c("i", {
+                          staticClass: "fa fa-times",
+                          attrs: { "aria-hidden": "true" }
+                        })
+                      ]
+                    )
+                  ])
+                ])
+              }),
+              _vm._v(" "),
+              _c("div", { staticClass: "col-md-12" }, [
+                _c(
+                  "label",
+                  { staticClass: "col-md-3", attrs: { for: "btn-add" } },
+                  [_vm._v("Adicionar Telefone")]
+                ),
+                _vm._v(" "),
+                _c(
+                  "button",
+                  {
+                    staticClass: "btn btn-success col-md-1",
+                    attrs: {
+                      type: "button",
+                      title: "Adicionar telefone",
+                      id: "btn-add"
+                    },
+                    on: {
+                      click: function($event) {
+                        return _vm.addTel()
+                      }
+                    }
+                  },
+                  [
+                    _c("i", {
+                      staticClass: "fa fa-plus",
+                      attrs: { "aria-hidden": "true" }
+                    })
+                  ]
+                )
+              ])
+            ],
+            2
+          ),
+          _vm._v(" "),
+          _c("hr"),
+          _vm._v(" "),
+          _c("div", { staticClass: "d-flex flex-row bd-highlight mb-3 mt-5" }, [
             _c(
               "button",
               {
@@ -41472,6 +41677,14 @@ var staticRenderFns = [
         _vm._v(" "),
         _c("th", [_vm._v("Ações")])
       ])
+    ])
+  },
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("div", { staticClass: "col-md-12" }, [
+      _c("h3", [_vm._v("Telefones")])
     ])
   }
 ]
