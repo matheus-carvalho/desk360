@@ -14,7 +14,7 @@
                         </div>
                     @endif
 
-                    You are logged in!
+                    <contact-component base-route="{{url('api')}}"></contact-component>
                 </div>
             </div>
         </div>
