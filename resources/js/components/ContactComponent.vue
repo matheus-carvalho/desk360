@@ -67,10 +67,10 @@
                 <div class="col-md-12">
                     <h3>Telefones</h3>
                 </div>
-                <div class="row col-md-12 form-group" v-for="tel in new_contact.telefones">
+                <div class="row col-md-12 form-group" v-for="tel in new_contact.tels">
                     <div class="col-md-4">
                         <label for="numero">Número</label>
-                        <input v-model="tel.numero" type="text" class="form-control" id="numero">
+                        <input v-model="tel.numero" type="tel" class="form-control" id="numero">
                     </div>
                     <div class="col-md-4">
                         <label for="tipo">Tipo</label>
@@ -131,7 +131,7 @@
                     email: "",
                     facebook: "",
                     linkedin: "",
-                    telefones: []
+                    tels: []
                 },
                 validations: []
             }
@@ -235,11 +235,11 @@
                 });
             },
             addTel: function() {
-                this.new_contact.telefones.push({id: null, numero: '', tipo: 'Residencial'});
+                this.new_contact.tels.push({id: null, numero: '', tipo: 'Residencial'});
             },
             removeTel: function(tel) {
-                const index = this.new_contact.telefones.indexOf(tel);
-                this.new_contact.telefones.splice(index, 1);
+                const index = this.new_contact.tels.indexOf(tel);
+                this.new_contact.tels.splice(index, 1);
             },
             validateEmptyOrWhiteSpace: function(txt) { // Valida se o texto nao esta vazio nem somente espacos em branco
                 return txt === null || txt.trim().length>0;
@@ -251,7 +251,7 @@
                     email: "",
                     facebook: "",
                     linkedin: "",
-                    telefones: []
+                    tels: []
                 }
             }
         },

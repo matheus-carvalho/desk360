@@ -14,4 +14,9 @@ class Contact extends Model
         'facebook',
         'linkedin'
     ];
+
+    public function Tels()
+    {
+        return $this->hasMany('App\Models\ContactTel', 'contact_id', 'id');
+    }
 }

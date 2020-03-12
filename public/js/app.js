@@ -2042,7 +2042,7 @@ vue__WEBPACK_IMPORTED_MODULE_0___default.a.use(vue_sweetalert2__WEBPACK_IMPORTED
         email: "",
         facebook: "",
         linkedin: "",
-        telefones: []
+        tels: []
       },
       validations: []
     };
@@ -2169,15 +2169,15 @@ vue__WEBPACK_IMPORTED_MODULE_0___default.a.use(vue_sweetalert2__WEBPACK_IMPORTED
       });
     },
     addTel: function addTel() {
-      this.new_contact.telefones.push({
+      this.new_contact.tels.push({
         id: null,
         numero: '',
         tipo: 'Residencial'
       });
     },
     removeTel: function removeTel(tel) {
-      var index = this.new_contact.telefones.indexOf(tel);
-      this.new_contact.telefones.splice(index, 1);
+      var index = this.new_contact.tels.indexOf(tel);
+      this.new_contact.tels.splice(index, 1);
     },
     validateEmptyOrWhiteSpace: function validateEmptyOrWhiteSpace(txt) {
       // Valida se o texto nao esta vazio nem somente espacos em branco
@@ -2190,7 +2190,7 @@ vue__WEBPACK_IMPORTED_MODULE_0___default.a.use(vue_sweetalert2__WEBPACK_IMPORTED
         email: "",
         facebook: "",
         linkedin: "",
-        telefones: []
+        tels: []
       };
     }
   },
@@ -41479,7 +41479,7 @@ var render = function() {
             [
               _vm._m(1),
               _vm._v(" "),
-              _vm._l(_vm.new_contact.telefones, function(tel) {
+              _vm._l(_vm.new_contact.tels, function(tel) {
                 return _c("div", { staticClass: "row col-md-12 form-group" }, [
                   _c("div", { staticClass: "col-md-4" }, [
                     _c("label", { attrs: { for: "numero" } }, [
@@ -41496,7 +41496,7 @@ var render = function() {
                         }
                       ],
                       staticClass: "form-control",
-                      attrs: { type: "text", id: "numero" },
+                      attrs: { type: "tel", id: "numero" },
                       domProps: { value: tel.numero },
                       on: {
                         input: function($event) {
