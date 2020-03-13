@@ -19,7 +19,7 @@
             <template v-for="contact in contacts">
                 <tr>
                     <td>{{contact.nome}}</td>
-                    <td>{{contact.email}}</td>
+                    <td><a v-bind:href="'mailto://' + contact.email" target="_blank"> {{contact.email}} </a></td>
                     <td><a v-bind:href="contact.facebook" target="_blank"> {{contact.facebook}} </a></td>
                     <td><a v-bind:href="contact.linkedin" target="_blank"> {{contact.linkedin}} </a></td>
                     <td>
@@ -111,7 +111,11 @@
                 <div class="row col-md-12 form-group" v-for="tel in new_contact.tels">
                     <div class="col-md-4">
                         <label v-bind:for="'numero' + (new_contact.tels.indexOf(tel)+1)">Número</label>
-                        <input v-model="tel.numero" type="tel" class="form-control"
+
+                        <the-mask v-model="tel.numero" class="form-control" :mask="['(##) ####-####', '(##) #####-####']"
+                                  v-if="tel.tipo === 'Celular'" v-bind:id="'numero-' + (new_contact.tels.indexOf(tel)+1)"/>
+
+                        <input v-model="tel.numero" type="tel" class="form-control" v-else
                                v-bind:id="'numero-' + (new_contact.tels.indexOf(tel)+1)">
                     </div>
                     <div class="col-md-4">
@@ -154,9 +158,13 @@
     import Vue from 'vue';
     import VueSweetalert2 from 'vue-sweetalert2';
     import 'sweetalert2/dist/sweetalert2.min.css';
+    import {TheMask} from 'vue-the-mask'
 
     Vue.use(VueSweetalert2);
     export default {
+        components: {
+            TheMask,
+        },
         props: [
             'baseRoute'
         ],
