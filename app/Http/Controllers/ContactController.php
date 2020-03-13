@@ -71,4 +71,13 @@ class ContactController extends Controller
 
         return ['ok' => $delete];
     }
+
+    public function destroyTel()
+    {
+        $id = request()->get('id');
+        $tel = ContactTel::find($id);
+        $delete = $tel->delete();
+
+        return ['ok' => $delete];
+    }
 }

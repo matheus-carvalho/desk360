@@ -22,3 +22,4 @@ Route::get('/contacts.getById', 'ContactController@getById');
 Route::post('/contacts', 'ContactController@store');
 Route::put('/contacts', 'ContactController@update');
 Route::delete('/contacts', 'ContactController@destroy');
+Route::delete('/tels', 'ContactController@destroyTel');

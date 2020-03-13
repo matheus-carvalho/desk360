@@ -41,12 +41,23 @@
                             <tr>
                                 <th>Número</th>
                                 <th>Tipo</th>
+                                <th>Ações</th>
                             </tr>
                             </thead>
                             <tbody>
                             <tr v-for="tel in contact.tels">
                                 <td> {{tel.numero}}</td>
                                 <td> {{tel.tipo}}</td>
+                                <td>
+                                    <button @click="edit(contact.id)" type="button" class="btn btn-warning col-md-3"
+                                            title="Editar">
+                                        <i class="fa fa-pencil-square-o" aria-hidden="true"></i>
+                                    </button>
+                                    <button @click="destroyTel(tel.id)" type="button" class="btn btn-danger col-md-3"
+                                            title="Excluir">
+                                        <i class="fa fa-ban" aria-hidden="true"></i>
+                                    </button>
+                                </td>
                             </tr>
                             </tbody>
                         </table>
@@ -174,7 +185,7 @@
                     this.contacts = response.data;
                 }).catch((err) => {
                     console.log('err', err);
-                    this.$swal('Erro', 'Não foi possível recuperar os clientes', "error");
+                    this.$swal('Erro', 'Não foi possível recuperar os contatos', "error");
                 });
             },
             edit: function(id) {
@@ -183,7 +194,7 @@
                     this.new_contact = response.data;
                 }).catch((err) => {
                     console.log('err', err);
-                    this.$swal('Error', 'Erro ao buscar cliente', "error");
+                    this.$swal('Error', 'Erro ao buscar contato', "error");
                 });
             },
             update: function() {
@@ -198,7 +209,7 @@
                     }
                 }).catch((err) => {
                     console.log('err', err);
-                    this.$swal('Error', 'Erro ao atualizar cliente', "error");
+                    this.$swal('Error', 'Erro ao atualizar contato', "error");
                 });
             },
             destroy: function(id) {
@@ -216,7 +227,27 @@
                             this.$swal('Sucesso', 'Registro excluído com sucesso', "success");
                         }).catch((err) => {
                             console.log('err', err);
-                            this.$swal('Error', 'Erro ao buscar cliente', "error");
+                            this.$swal('Error', 'Erro ao excluir contato', "error");
+                        });
+                    }
+                });
+            },
+            destroyTel: function(id) {
+                this.$swal({
+                    title: "Deseja excluir este telefone?",
+                    text: "Esta ação não pode ser desfeita!",
+                    icon: "warning",
+                    showCancelButton: true,
+                    confirmButtonColor: "#3085d6",
+                    confirmButtonText: "Sim!"
+                }).then((result) => {
+                    if (result.value) {
+                        axios.delete(this.baseRoute + `/tels?id=${id}`).then(() => {
+                            this.getAll();
+                            this.$swal('Sucesso', 'Registro excluído com sucesso', "success");
+                        }).catch((err) => {
+                            console.log('err', err);
+                            this.$swal('Error', 'Erro ao excluir telefone', "error");
                         });
                     }
                 });

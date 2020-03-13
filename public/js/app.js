@@ -2046,6 +2046,17 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 
 
 
@@ -2088,7 +2099,7 @@ vue__WEBPACK_IMPORTED_MODULE_0___default.a.use(vue_sweetalert2__WEBPACK_IMPORTED
       })["catch"](function (err) {
         console.log('err', err);
 
-        _this.$swal('Erro', 'Não foi possível recuperar os clientes', "error");
+        _this.$swal('Erro', 'Não foi possível recuperar os contatos', "error");
       });
     },
     edit: function edit(id) {
@@ -2101,7 +2112,7 @@ vue__WEBPACK_IMPORTED_MODULE_0___default.a.use(vue_sweetalert2__WEBPACK_IMPORTED
       })["catch"](function (err) {
         console.log('err', err);
 
-        _this2.$swal('Error', 'Erro ao buscar cliente', "error");
+        _this2.$swal('Error', 'Erro ao buscar contato', "error");
       });
     },
     update: function update() {
@@ -2122,7 +2133,7 @@ vue__WEBPACK_IMPORTED_MODULE_0___default.a.use(vue_sweetalert2__WEBPACK_IMPORTED
       })["catch"](function (err) {
         console.log('err', err);
 
-        _this3.$swal('Error', 'Erro ao atualizar cliente', "error");
+        _this3.$swal('Error', 'Erro ao atualizar contato', "error");
       });
     },
     destroy: function destroy(id) {
@@ -2144,7 +2155,31 @@ vue__WEBPACK_IMPORTED_MODULE_0___default.a.use(vue_sweetalert2__WEBPACK_IMPORTED
           })["catch"](function (err) {
             console.log('err', err);
 
-            _this4.$swal('Error', 'Erro ao buscar cliente', "error");
+            _this4.$swal('Error', 'Erro ao excluir contato', "error");
+          });
+        }
+      });
+    },
+    destroyTel: function destroyTel(id) {
+      var _this5 = this;
+
+      this.$swal({
+        title: "Deseja excluir este telefone?",
+        text: "Esta ação não pode ser desfeita!",
+        icon: "warning",
+        showCancelButton: true,
+        confirmButtonColor: "#3085d6",
+        confirmButtonText: "Sim!"
+      }).then(function (result) {
+        if (result.value) {
+          axios["delete"](_this5.baseRoute + "/tels?id=".concat(id)).then(function () {
+            _this5.getAll();
+
+            _this5.$swal('Sucesso', 'Registro excluído com sucesso', "success");
+          })["catch"](function (err) {
+            console.log('err', err);
+
+            _this5.$swal('Error', 'Erro ao excluir telefone', "error");
           });
         }
       });
@@ -2178,24 +2213,24 @@ vue__WEBPACK_IMPORTED_MODULE_0___default.a.use(vue_sweetalert2__WEBPACK_IMPORTED
       }
     },
     store: function store() {
-      var _this5 = this;
+      var _this6 = this;
 
       axios.post(this.baseRoute + "/contacts", {
         contact: this.new_contact
       }).then(function (response) {
         if (response.data.ok) {
-          _this5.$swal('Sucesso', 'Registro inserido com sucesso', "success");
+          _this6.$swal('Sucesso', 'Registro inserido com sucesso', "success");
 
-          _this5.disableCreate();
+          _this6.disableCreate();
 
-          _this5.getAll();
+          _this6.getAll();
 
-          _this5.clearContact();
+          _this6.clearContact();
         }
       })["catch"](function (err) {
         console.log('err', err);
 
-        _this5.$swal('Error', 'Erro ao inserir cliente', "error");
+        _this6.$swal('Error', 'Erro ao inserir cliente', "error");
       });
     },
     addTel: function addTel() {
@@ -41414,7 +41449,53 @@ var render = function() {
                                 return _c("tr", [
                                   _c("td", [_vm._v(" " + _vm._s(tel.numero))]),
                                   _vm._v(" "),
-                                  _c("td", [_vm._v(" " + _vm._s(tel.tipo))])
+                                  _c("td", [_vm._v(" " + _vm._s(tel.tipo))]),
+                                  _vm._v(" "),
+                                  _c("td", [
+                                    _c(
+                                      "button",
+                                      {
+                                        staticClass: "btn btn-warning col-md-3",
+                                        attrs: {
+                                          type: "button",
+                                          title: "Editar"
+                                        },
+                                        on: {
+                                          click: function($event) {
+                                            return _vm.edit(contact.id)
+                                          }
+                                        }
+                                      },
+                                      [
+                                        _c("i", {
+                                          staticClass: "fa fa-pencil-square-o",
+                                          attrs: { "aria-hidden": "true" }
+                                        })
+                                      ]
+                                    ),
+                                    _vm._v(" "),
+                                    _c(
+                                      "button",
+                                      {
+                                        staticClass: "btn btn-danger col-md-3",
+                                        attrs: {
+                                          type: "button",
+                                          title: "Excluir"
+                                        },
+                                        on: {
+                                          click: function($event) {
+                                            return _vm.destroyTel(tel.id)
+                                          }
+                                        }
+                                      },
+                                      [
+                                        _c("i", {
+                                          staticClass: "fa fa-ban",
+                                          attrs: { "aria-hidden": "true" }
+                                        })
+                                      ]
+                                    )
+                                  ])
                                 ])
                               }),
                               0
@@ -41762,7 +41843,9 @@ var staticRenderFns = [
       _c("tr", [
         _c("th", [_vm._v("Número")]),
         _vm._v(" "),
-        _c("th", [_vm._v("Tipo")])
+        _c("th", [_vm._v("Tipo")]),
+        _vm._v(" "),
+        _c("th", [_vm._v("Ações")])
       ])
     ])
   },
