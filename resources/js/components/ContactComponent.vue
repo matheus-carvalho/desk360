@@ -5,7 +5,7 @@
             <h2 class="mb-0">Contatos</h2>
             <button v-on:click="enableCreate" type="button" class="btn btn-success ml-5" title="Cadastrar">Cadastrar</button>
         </div>
-        <table class="table table-striped">
+        <table class="table table-light">
             <thead>
             <tr>
                 <th>Nome</th>
@@ -16,20 +16,43 @@
             </tr>
             </thead>
             <tbody>
-            <tr v-for="contact in contacts">
-                <td>{{contact.nome}}</td>
-                <td>{{contact.email}}</td>
-                <td>{{contact.facebook}}</td>
-                <td>{{contact.linkedin}}</td>
-                <td>
-                    <button @click="edit(contact.id)" type="button" class="btn btn-warning col-md-5" title="Editar">
-                        <i class="fa fa-pencil-square-o" aria-hidden="true"></i>
-                    </button>
-                    <button @click="destroy(contact.id)" type="button" class="btn btn-danger col-md-5" title="Excluir">
-                        <i class="fa fa-ban" aria-hidden="true"></i>
-                    </button>
-                </td>
-            </tr>
+            <template v-for="contact in contacts">
+                <tr>
+                    <td>{{contact.nome}}</td>
+                    <td>{{contact.email}}</td>
+                    <td>{{contact.facebook}}</td>
+                    <td>{{contact.linkedin}}</td>
+                    <td>
+                        <button @click="toggleTels(contact)" type="button" class="btn btn-info col-md-3" title="Telefones">
+                            <i class="fa fa-phone" aria-hidden="true"></i>
+                        </button>
+                        <button @click="edit(contact.id)" type="button" class="btn btn-warning col-md-3" title="Editar">
+                            <i class="fa fa-pencil-square-o" aria-hidden="true"></i>
+                        </button>
+                        <button @click="destroy(contact.id)" type="button" class="btn btn-danger col-md-3" title="Excluir">
+                            <i class="fa fa-ban" aria-hidden="true"></i>
+                        </button>
+                    </td>
+                </tr>
+                <tr v-if="contact.show_tels">
+                    <td colspan="5">
+                        <table class="table">
+                            <thead class="thead-dark">
+                            <tr>
+                                <th>Número</th>
+                                <th>Tipo</th>
+                            </tr>
+                            </thead>
+                            <tbody>
+                            <tr v-for="tel in contact.tels">
+                                <td> {{tel.numero}}</td>
+                                <td> {{tel.tipo}}</td>
+                            </tr>
+                            </tbody>
+                        </table>
+                    </td>
+                </tr>
+            </template>
             </tbody>
         </table>
     </div>
@@ -144,6 +167,10 @@
             },
             getAll: function() {
                 axios.get(this.baseRoute + `/contacts`).then((response) => {
+                    response.data.map((c) => {
+                        c.show_tels = (c.tels.length > 0);
+                        return c;
+                    });
                     this.contacts = response.data;
                 }).catch((err) => {
                     console.log('err', err);
@@ -193,6 +220,9 @@
                         });
                     }
                 });
+            },
+            toggleTels: function(contact) {
+                contact.show_tels = (contact.tels.length > 0) ? !contact.show_tels : false;
             },
             // Metodos da pagina 'create/edit'
             disableCreate: function() {

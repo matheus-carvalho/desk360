@@ -9,7 +9,7 @@ class ContactController extends Controller
 {
     public function get()
     {
-        return Contact::all();
+        return Contact::with('Tels')->get();
     }
 
     public function getById()
@@ -66,6 +66,7 @@ class ContactController extends Controller
     {
         $id = request()->get('id');
         $contact = Contact::find($id);
+        $contact->Tels()->delete();
         $delete = $contact->delete();
 
         return ['ok' => $delete];

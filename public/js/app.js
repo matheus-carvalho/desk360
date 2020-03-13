@@ -2023,6 +2023,29 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 
 
 
@@ -2057,6 +2080,10 @@ vue__WEBPACK_IMPORTED_MODULE_0___default.a.use(vue_sweetalert2__WEBPACK_IMPORTED
       var _this = this;
 
       axios.get(this.baseRoute + "/contacts").then(function (response) {
+        response.data.map(function (c) {
+          c.show_tels = c.tels.length > 0;
+          return c;
+        });
         _this.contacts = response.data;
       })["catch"](function (err) {
         console.log('err', err);
@@ -2121,6 +2148,9 @@ vue__WEBPACK_IMPORTED_MODULE_0___default.a.use(vue_sweetalert2__WEBPACK_IMPORTED
           });
         }
       });
+    },
+    toggleTels: function toggleTels(contact) {
+      contact.show_tels = contact.tels.length > 0 ? !contact.show_tels : false;
     },
     // Metodos da pagina 'create/edit'
     disableCreate: function disableCreate() {
@@ -41295,63 +41325,108 @@ var render = function() {
           )
         ]),
         _vm._v(" "),
-        _c("table", { staticClass: "table table-striped" }, [
+        _c("table", { staticClass: "table table-light" }, [
           _vm._m(0),
           _vm._v(" "),
           _c(
             "tbody",
-            _vm._l(_vm.contacts, function(contact) {
-              return _c("tr", [
-                _c("td", [_vm._v(_vm._s(contact.nome))]),
-                _vm._v(" "),
-                _c("td", [_vm._v(_vm._s(contact.email))]),
-                _vm._v(" "),
-                _c("td", [_vm._v(_vm._s(contact.facebook))]),
-                _vm._v(" "),
-                _c("td", [_vm._v(_vm._s(contact.linkedin))]),
-                _vm._v(" "),
-                _c("td", [
-                  _c(
-                    "button",
-                    {
-                      staticClass: "btn btn-warning col-md-5",
-                      attrs: { type: "button", title: "Editar" },
-                      on: {
-                        click: function($event) {
-                          return _vm.edit(contact.id)
-                        }
-                      }
-                    },
-                    [
-                      _c("i", {
-                        staticClass: "fa fa-pencil-square-o",
-                        attrs: { "aria-hidden": "true" }
-                      })
-                    ]
-                  ),
+            [
+              _vm._l(_vm.contacts, function(contact) {
+                return [
+                  _c("tr", [
+                    _c("td", [_vm._v(_vm._s(contact.nome))]),
+                    _vm._v(" "),
+                    _c("td", [_vm._v(_vm._s(contact.email))]),
+                    _vm._v(" "),
+                    _c("td", [_vm._v(_vm._s(contact.facebook))]),
+                    _vm._v(" "),
+                    _c("td", [_vm._v(_vm._s(contact.linkedin))]),
+                    _vm._v(" "),
+                    _c("td", [
+                      _c(
+                        "button",
+                        {
+                          staticClass: "btn btn-info col-md-3",
+                          attrs: { type: "button", title: "Telefones" },
+                          on: {
+                            click: function($event) {
+                              return _vm.toggleTels(contact)
+                            }
+                          }
+                        },
+                        [
+                          _c("i", {
+                            staticClass: "fa fa-phone",
+                            attrs: { "aria-hidden": "true" }
+                          })
+                        ]
+                      ),
+                      _vm._v(" "),
+                      _c(
+                        "button",
+                        {
+                          staticClass: "btn btn-warning col-md-3",
+                          attrs: { type: "button", title: "Editar" },
+                          on: {
+                            click: function($event) {
+                              return _vm.edit(contact.id)
+                            }
+                          }
+                        },
+                        [
+                          _c("i", {
+                            staticClass: "fa fa-pencil-square-o",
+                            attrs: { "aria-hidden": "true" }
+                          })
+                        ]
+                      ),
+                      _vm._v(" "),
+                      _c(
+                        "button",
+                        {
+                          staticClass: "btn btn-danger col-md-3",
+                          attrs: { type: "button", title: "Excluir" },
+                          on: {
+                            click: function($event) {
+                              return _vm.destroy(contact.id)
+                            }
+                          }
+                        },
+                        [
+                          _c("i", {
+                            staticClass: "fa fa-ban",
+                            attrs: { "aria-hidden": "true" }
+                          })
+                        ]
+                      )
+                    ])
+                  ]),
                   _vm._v(" "),
-                  _c(
-                    "button",
-                    {
-                      staticClass: "btn btn-danger col-md-5",
-                      attrs: { type: "button", title: "Excluir" },
-                      on: {
-                        click: function($event) {
-                          return _vm.destroy(contact.id)
-                        }
-                      }
-                    },
-                    [
-                      _c("i", {
-                        staticClass: "fa fa-ban",
-                        attrs: { "aria-hidden": "true" }
-                      })
-                    ]
-                  )
-                ])
-              ])
-            }),
-            0
+                  contact.show_tels
+                    ? _c("tr", [
+                        _c("td", { attrs: { colspan: "5" } }, [
+                          _c("table", { staticClass: "table" }, [
+                            _vm._m(1, true),
+                            _vm._v(" "),
+                            _c(
+                              "tbody",
+                              _vm._l(contact.tels, function(tel) {
+                                return _c("tr", [
+                                  _c("td", [_vm._v(" " + _vm._s(tel.numero))]),
+                                  _vm._v(" "),
+                                  _c("td", [_vm._v(" " + _vm._s(tel.tipo))])
+                                ])
+                              }),
+                              0
+                            )
+                          ])
+                        ])
+                      ])
+                    : _vm._e()
+                ]
+              })
+            ],
+            2
           )
         ])
       ])
@@ -41477,7 +41552,7 @@ var render = function() {
             "div",
             { staticClass: "row" },
             [
-              _vm._m(1),
+              _vm._m(2),
               _vm._v(" "),
               _vm._l(_vm.new_contact.tels, function(tel) {
                 return _c("div", { staticClass: "row col-md-12 form-group" }, [
@@ -41676,6 +41751,18 @@ var staticRenderFns = [
         _c("th", [_vm._v("LinkedIn")]),
         _vm._v(" "),
         _c("th", [_vm._v("Ações")])
+      ])
+    ])
+  },
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("thead", { staticClass: "thead-dark" }, [
+      _c("tr", [
+        _c("th", [_vm._v("Número")]),
+        _vm._v(" "),
+        _c("th", [_vm._v("Tipo")])
       ])
     ])
   },
