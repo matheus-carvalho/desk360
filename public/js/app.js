@@ -2057,6 +2057,7 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
 
 
 
@@ -41638,9 +41639,16 @@ var render = function() {
               _vm._l(_vm.new_contact.tels, function(tel) {
                 return _c("div", { staticClass: "row col-md-12 form-group" }, [
                   _c("div", { staticClass: "col-md-4" }, [
-                    _c("label", { attrs: { for: "numero" } }, [
-                      _vm._v("Número")
-                    ]),
+                    _c(
+                      "label",
+                      {
+                        attrs: {
+                          for:
+                            "numero" + (_vm.new_contact.tels.indexOf(tel) + 1)
+                        }
+                      },
+                      [_vm._v("Número")]
+                    ),
                     _vm._v(" "),
                     _c("input", {
                       directives: [
@@ -41652,7 +41660,10 @@ var render = function() {
                         }
                       ],
                       staticClass: "form-control",
-                      attrs: { type: "tel", id: "numero" },
+                      attrs: {
+                        type: "tel",
+                        id: "numero-" + (_vm.new_contact.tels.indexOf(tel) + 1)
+                      },
                       domProps: { value: tel.numero },
                       on: {
                         input: function($event) {
@@ -41666,7 +41677,15 @@ var render = function() {
                   ]),
                   _vm._v(" "),
                   _c("div", { staticClass: "col-md-4" }, [
-                    _c("label", { attrs: { for: "tipo" } }, [_vm._v("Tipo")]),
+                    _c(
+                      "label",
+                      {
+                        attrs: {
+                          for: "tipo-" + (_vm.new_contact.tels.indexOf(tel) + 1)
+                        }
+                      },
+                      [_vm._v("Tipo")]
+                    ),
                     _vm._v(" "),
                     _c(
                       "select",
@@ -41680,7 +41699,9 @@ var render = function() {
                           }
                         ],
                         staticClass: "form-control",
-                        attrs: { id: "tipo" },
+                        attrs: {
+                          id: "tipo-" + (_vm.new_contact.tels.indexOf(tel) + 1)
+                        },
                         on: {
                           change: function($event) {
                             var $$selectedVal = Array.prototype.filter

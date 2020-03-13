@@ -103,12 +103,13 @@
                 </div>
                 <div class="row col-md-12 form-group" v-for="tel in new_contact.tels">
                     <div class="col-md-4">
-                        <label for="numero">Número</label>
-                        <input v-model="tel.numero" type="tel" class="form-control" id="numero">
+                        <label v-bind:for="'numero' + (new_contact.tels.indexOf(tel)+1)">Número</label>
+                        <input v-model="tel.numero" type="tel" class="form-control"
+                               v-bind:id="'numero-' + (new_contact.tels.indexOf(tel)+1)">
                     </div>
                     <div class="col-md-4">
-                        <label for="tipo">Tipo</label>
-                        <select class="form-control" v-model="tel.tipo" id="tipo">
+                        <label v-bind:for="'tipo-' + (new_contact.tels.indexOf(tel)+1)">Tipo</label>
+                        <select class="form-control" v-model="tel.tipo" v-bind:id="'tipo-' + (new_contact.tels.indexOf(tel)+1)">
                             <option>Residencial</option>
                             <option>Comercial</option>
                             <option>Celular</option>
