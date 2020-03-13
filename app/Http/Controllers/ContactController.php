@@ -2,8 +2,10 @@
 
 namespace App\Http\Controllers;
 
+use App\Mail\ContactCreated;
 use App\Models\Contact;
 use App\Models\ContactTel;
+use Illuminate\Support\Facades\Mail;
 
 class ContactController extends Controller
 {
@@ -28,6 +30,9 @@ class ContactController extends Controller
             ContactTel::create($tel);
         }
 
+        if ($insert) {
+            Mail::to($contact['email'])->send(new ContactCreated());
+        }
         return [ 'ok' => $insert ];
     }
 
