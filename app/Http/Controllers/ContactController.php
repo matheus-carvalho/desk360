@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Jobs\SendMail;
 use App\Mail\ContactCreated;
 use App\Models\Contact;
 use App\Models\ContactTel;
@@ -31,7 +32,7 @@ class ContactController extends Controller
         }
 
         if ($insert) {
-            Mail::to($contact['email'])->send(new ContactCreated());
+            SendMail::dispatch($contact['email']);
         }
         return [ 'ok' => $insert ];
     }
