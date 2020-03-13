@@ -5,7 +5,7 @@
             <h2 class="mb-0">Contatos</h2>
             <button v-on:click="enableCreate" type="button" class="btn btn-success ml-5" title="Cadastrar">Cadastrar</button>
         </div>
-        <table class="table table-light">
+        <table class="table table-light fixed-table">
             <thead>
             <tr>
                 <th>Nome</th>
@@ -20,8 +20,8 @@
                 <tr>
                     <td>{{contact.nome}}</td>
                     <td>{{contact.email}}</td>
-                    <td>{{contact.facebook}}</td>
-                    <td>{{contact.linkedin}}</td>
+                    <td><a v-bind:href="contact.facebook" target="_blank"> {{contact.facebook}} </a></td>
+                    <td><a v-bind:href="contact.linkedin" target="_blank"> {{contact.linkedin}} </a></td>
                     <td>
                         <button @click="toggleTels(contact)" type="button" class="btn btn-info col-md-3" title="Telefones">
                             <i class="fa fa-phone" aria-hidden="true"></i>
@@ -36,7 +36,7 @@
                 </tr>
                 <tr v-if="contact.show_tels">
                     <td colspan="5">
-                        <table class="table">
+                        <table class="table fixed-table">
                             <thead class="thead-dark">
                             <tr>
                                 <th>Número</th>
@@ -46,7 +46,14 @@
                             </thead>
                             <tbody>
                             <tr v-for="tel in contact.tels">
-                                <td> {{tel.numero}}</td>
+                                <td v-if="tel.tipo === 'Celular'">
+                                    <a v-bind:href="'https://api.whatsapp.com/send?phone=550'+tel.numero" target="_blank">
+                                        {{tel.numero}}
+                                    </a>
+                                </td>
+                                <td v-else>
+                                    {{tel.numero}}
+                                </td>
                                 <td> {{tel.tipo}}</td>
                                 <td>
                                     <button @click="edit(contact.id)" type="button" class="btn btn-warning col-md-3"
@@ -326,4 +333,8 @@
 </script>
 
 <style scoped>
+    .fixed-table {
+        table-layout: fixed;
+        word-wrap: break-word;
+    }
 </style>
